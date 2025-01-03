@@ -1,7 +1,7 @@
 {
   "name": "twitch-hboverlay-client",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "React client for OBS healthbar overlay controlled by Twitch emote/redeem events",
   "scripts": {
     "start": "vite",
