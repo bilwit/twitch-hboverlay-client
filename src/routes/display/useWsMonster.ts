@@ -20,7 +20,7 @@ function useWsMonster(): ReturnData {
   const [data, setData] = useState<MonsterData>({});
 
   useEffect(() => {
-    const socket = new WebSocket('ws://' + window.location.hostname + ':888/ws');
+    const socket = new WebSocket('/wss');
 
     if (socket) {
       try {  
