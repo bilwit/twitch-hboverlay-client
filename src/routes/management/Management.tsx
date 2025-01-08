@@ -15,7 +15,7 @@ import Settings from './settings';
 import { GiMonsterGrasp } from 'react-icons/gi';
 import { VscSettingsGear } from 'react-icons/vsc';
 import useGetSettings from './settings/useGetSettings';
-import { useEffect } from 'react';
+import { JSX, useEffect } from 'react';
 import useWsMonster from '../display/useWsMonster';
 import WsContext from '../../wsContext';
 
@@ -24,8 +24,8 @@ interface Routes_Icon_Dictionary {
 }
 
 const routes_icon_dictionary: Routes_Icon_Dictionary = {
-  'monsters': (<GiMonsterGrasp size="1rem" stroke={1.5}/>),
-  'settings': (<VscSettingsGear size="1rem" stroke={1.5} />),
+  'monsters': (<GiMonsterGrasp size="1rem" stroke={'1.5'}/>),
+  'settings': (<VscSettingsGear size="1rem" stroke={'1.5'} />),
 }
 
 function Management() {
