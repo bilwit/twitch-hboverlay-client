@@ -49,7 +49,7 @@ function Status(props: Props) {
             icon={
               <BiInfoCircle 
                 size="1rem" 
-                stroke={1.5} 
+                stroke={'1.5'} 
               />
             }
           >
@@ -107,7 +107,7 @@ function Status(props: Props) {
               leftSection={
                 <GrPowerReset  
                   size="1rem" 
-                  stroke={1.5}
+                  stroke={'1.5'}
                 />
               }
             >
@@ -130,7 +130,7 @@ function Status(props: Props) {
                 leftSection={
                   <RiRestartFill   
                     size="1rem" 
-                    stroke={1.5}
+                    stroke={'1.5'}
                   />
                 }
               >
@@ -161,7 +161,7 @@ function Status(props: Props) {
                 leftSection={
                   <MdPlayArrow   
                     size="1rem" 
-                    stroke={1.5}
+                    stroke={'1.5'}
                   />
                 }
               >
@@ -190,7 +190,7 @@ function Status(props: Props) {
                 leftSection={
                   <MdOutlinePause   
                     size="1rem" 
-                    stroke={1.5}
+                    stroke={'1.5'}
                   />
                 }
               >

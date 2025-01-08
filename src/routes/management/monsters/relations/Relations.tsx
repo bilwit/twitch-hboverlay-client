@@ -95,7 +95,7 @@ function Relations(props: Props) {
           icon={
             <BiError 
               size="1rem" 
-              stroke={1.5} 
+              stroke={'1.5'} 
             />
           }
         >
@@ -111,7 +111,7 @@ function Relations(props: Props) {
         icon={
           <BiInfoCircle 
             size="1rem" 
-            stroke={1.5} 
+            stroke={'1.5'} 
           />
         }
       >
@@ -144,7 +144,7 @@ function Relations(props: Props) {
           leftSection={
             <MdGroupAdd  
               size="1rem" 
-              stroke={1.5} 
+              stroke={'1.5'} 
             />
           }
         >

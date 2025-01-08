@@ -215,7 +215,7 @@ function Item(props: Props) {
                 leftSection={
                   <MdAdd  
                     size="1rem" 
-                    stroke={1.5} 
+                    stroke={'1.5'} 
                   />
                 }
               >

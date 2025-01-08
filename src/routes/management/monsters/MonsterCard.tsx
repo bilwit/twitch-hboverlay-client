@@ -92,7 +92,7 @@ function Monsters(props: Props) {
                 leftSection={
                   <MdEdit 
                     size="1rem" 
-                    stroke={1.5} 
+                    stroke={'1.5'} 
                   />
                 }
               >

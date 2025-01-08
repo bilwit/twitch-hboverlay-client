@@ -118,7 +118,7 @@ function Settings(props: Props) {
           icon={
             <BiInfoCircle 
               size="1rem" 
-              stroke={1.5} 
+              stroke={'1.5'}
             />
           }
         >
@@ -236,7 +236,7 @@ function Settings(props: Props) {
           icon={
             <BiInfoCircle 
               size="1rem" 
-              stroke={1.5} 
+              stroke={'1.5'}
             />
           }
         >
@@ -285,7 +285,7 @@ function Settings(props: Props) {
               icon={
                 <BiError 
                   size="1rem" 
-                  stroke={1.5} 
+                  stroke={'1.5'}
                 />
               }
             >
@@ -359,7 +359,7 @@ function Settings(props: Props) {
               icon={
                 <BiError 
                   size="1rem" 
-                  stroke={1.5} 
+                  stroke={'1.5'}
                 />
               }
             >

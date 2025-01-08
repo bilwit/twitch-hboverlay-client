@@ -20,7 +20,7 @@ import {
 import classes from '../../../../css/Nav.module.css'
 import { GiMonsterGrasp } from 'react-icons/gi';
 import { useForm } from '@mantine/form';
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import { theme } from '../../../../theme';
 import useGetData, { Monster } from '../../useGetData';
 import { BsFillPersonFill } from 'react-icons/bs';
@@ -235,7 +235,7 @@ function Properties(props: Props) {
                   rightSection={(
                     <BiInfoCircle 
                       size="1rem" 
-                      stroke={1.5} 
+                      stroke={'1.5'} 
                     />
                   )}
                   required
@@ -309,7 +309,7 @@ function Properties(props: Props) {
               leftSection={
                 <GiMonsterGrasp 
                   size="1rem" 
-                  stroke={1.5} 
+                  stroke={'1.5'} 
                 />
               }
             >
@@ -329,7 +329,7 @@ function Properties(props: Props) {
               leftSection={
                 <GiMonsterGrasp 
                   size="1rem" 
-                  stroke={1.5} 
+                  stroke={'1.5'} 
                 />
               }
             >
@@ -348,7 +348,7 @@ function Properties(props: Props) {
               leftSection={
                 <AiFillDelete 
                   size="1rem" 
-                  stroke={1.5} 
+                  stroke={'1.5'} 
                 />
               }
             >
@@ -411,7 +411,7 @@ const InfoDefault = (
           <Group>
             <BiInfoCircle 
               size="1rem" 
-              stroke={1.5} 
+              stroke={'1.5'} 
             />
             <Text>
               Health Styles

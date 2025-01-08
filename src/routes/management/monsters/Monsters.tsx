@@ -79,7 +79,7 @@ function Monsters() {
           icon={
             <BiError 
               size="1rem" 
-              stroke={1.5} 
+              stroke={'1.5'} 
             />
           }
         >
@@ -136,7 +136,7 @@ function Monsters() {
                   icon={
                     <BiInfoCircle 
                       size="1rem" 
-                      stroke={1.5} 
+                      stroke={'1.5'} 
                     />
                   }
                 >
@@ -158,7 +158,7 @@ function Monsters() {
           leftSection={
             <GiMonsterGrasp 
               size="1rem" 
-              stroke={1.5} 
+              stroke={'1.5'} 
             />
           }
           onClick={(e) => {

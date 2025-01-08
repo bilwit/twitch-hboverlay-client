@@ -4,6 +4,7 @@ import {
 } from '@mantine/core';
 import classes from '../../css/Nav.module.css';
 import { BiError, BiInfoCircle } from 'react-icons/bi';
+import { JSX } from 'react';
 
 interface Props {
   error?: string | JSX.Element,
@@ -26,7 +27,7 @@ function Alerts(props: Props) {
             icon={
               <BiError 
                 size="1rem" 
-                stroke={1.5} 
+                stroke={'1.5'} 
               />
             }
           >
@@ -44,7 +45,7 @@ function Alerts(props: Props) {
             icon={
               <BiError 
                 size="1rem" 
-                stroke={1.5} 
+                stroke={'1.5'} 
               />
             }
           >
@@ -62,7 +63,7 @@ function Alerts(props: Props) {
             icon={
               <BiInfoCircle 
                 size="1rem" 
-                stroke={1.5} 
+                stroke={'1.5'} 
               />
             }
           >
@@ -80,7 +81,7 @@ function Alerts(props: Props) {
             icon={
               <BiInfoCircle 
                 size="1rem" 
-                stroke={1.5} 
+                stroke={'1.5'} 
               />
             }
           >

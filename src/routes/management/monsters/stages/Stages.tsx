@@ -29,7 +29,7 @@ function Stages(props: Props) {
         icon={
           <BiInfoCircle 
             size="1rem" 
-            stroke={1.5} 
+            stroke={'1.5'} 
           />
         }
       >
