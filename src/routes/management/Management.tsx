@@ -18,6 +18,7 @@ import useGetSettings from './settings/useGetSettings';
 import { JSX, useEffect } from 'react';
 import useWsMonster from '../display/useWsMonster';
 import WsContext from '../../wsContext';
+import Auth from './auth';
 
 interface Routes_Icon_Dictionary {
   [key: string]: JSX.Element,
@@ -114,6 +115,10 @@ function Management() {
               <Route
                 path="/monsters/*"
                 element={<Monsters />}
+              />
+              <Route
+                path="/auth"
+                element={<Auth />}
               />
             </Routes>
           </AppShell.Main>
