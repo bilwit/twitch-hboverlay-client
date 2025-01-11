@@ -43,19 +43,12 @@ function Management() {
   const [opened, { toggle }] = useDisclosure();
   const [settingsIsOpened, { open, close }] = useDisclosure(false);
 
+  // force open settings modal if no settings are found
   useEffect(() => {
     if (!isLoading && !settings) {
       open();
     }
   }, [isLoading]);
-
-  useEffect(() => {
-    return () => {
-      if (connectedSocket) {
-        connectedSocket.close();
-      }
-    }
-  }, [connectedSocket]);
 
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
