@@ -28,7 +28,7 @@ function Auth() {
         <Alert 
           variant="light" 
           color="green" 
-          title="Copy the code below and enter it in your form" 
+          title="Copy the code below and enter it in your form in the previous window" 
           icon={
             <BiInfoCircle 
               size="1rem" 
