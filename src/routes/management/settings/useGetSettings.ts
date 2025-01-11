@@ -8,6 +8,7 @@ export interface Settings {
   listener_user_name: string,
   channel_name: string,
   is_connected?: boolean,
+  redirect_uri?: string,
 }
 
 function useGetSettings(): { 

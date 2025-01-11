@@ -134,7 +134,7 @@ function Settings(props: Props) {
           <Space h="xs" />
           <List withPadding>
             <List.Item>Name: Health Bar Overlay</List.Item>
-            <List.Item>{'OAuth Redirect URLs: ' + window.location.origin + '/monsters'}</List.Item>
+            <List.Item>{'OAuth Redirect URLs: ' + window.location.origin + '/auth'}</List.Item>
             <List.Item>Category: Chat Bot</List.Item>
           </List>
           <Space h="xs" />
@@ -247,7 +247,7 @@ function Settings(props: Props) {
                 'https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=' + 
                 settingsStore.listener_client_id + 
                 '&redirect_uri=' + 
-                window.location.origin + '/monsters' + 
+                window.location.origin + '/auth' + 
                 '&scope=channel:read:redemptions+moderator:read:chatters+chat:read&state=123'
               } 
               target="_blank"
@@ -256,7 +256,7 @@ function Settings(props: Props) {
                 'https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=' + 
                 settingsStore.listener_client_id + 
                 '&redirect_uri=' + 
-                window.location.origin + '/monsters' + 
+                window.location.origin + '/auth' + 
                 '&scope=channel:read:redemptions+moderator:read:chatters+chat:read&state=123'
               }
             </a>
@@ -316,6 +316,9 @@ function Settings(props: Props) {
                   if (!settingsStore.listener_auth_code) {
                     return setError('Auth Code is required.');
                   }
+
+                  settingsStore.redirect_uri = window.location.origin + '/auth';
+                  
                   try {
                     const result = await fetch(
                       '/api/settings',
