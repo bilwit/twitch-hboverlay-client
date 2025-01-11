@@ -377,7 +377,8 @@ function Settings(props: Props) {
                   if (WsConnection?.isConnected && WsConnection?.connectedSocket) {
                     try {
                       WsConnection?.connectedSocket.send(JSON.stringify({ 
-                        message: 'disconnect',
+                        message: 'unsubscribe',
+                        data: 'twitch-chat',
                       }));
                     } catch (e) {
                       console.error(e);
@@ -397,7 +398,9 @@ function Settings(props: Props) {
                   if (!WsConnection?.isConnected && WsConnection?.connectedSocket) {
                     try {
                       WsConnection?.connectedSocket.send(JSON.stringify({ 
-                        message: 'connect',
+                        message: 'subscribe',
+                        data: 'twitch-chat',
+                        channels: ['update'],
                       }));
                     } catch (e) {
                       console.error(e);
