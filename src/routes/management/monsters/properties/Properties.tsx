@@ -34,6 +34,7 @@ interface Props {
   data?: Monster,
   setMonsters: React.Dispatch<React.SetStateAction<Monster[]>>,
   setModalName: React.Dispatch<React.SetStateAction<string>>,
+  setError: React.Dispatch<React.SetStateAction<string>>,
 }
 
 interface FormDataInterface {
@@ -148,12 +149,14 @@ function Properties(props: Props) {
                   ]));
                   props.setModalName(responseJson.data[0].name);
                   setInfo('Monster created!');
+                  props.setError('');
 
                   setTimeout(() => props.close(), 1500);
                 } else {
                   // edited monster
                   props.setMonsters((prev) => prev.map((item) => item.id === responseJson.data[0].id ? responseJson.data[0] : item).sort((a, b) => a.updated_at < b.updated_at ? -1 : 1));
                   setIsEditSuccess('Monster values updated');
+                  props.setError('');
 
                   setTimeout(() => props.close(), 1500);
                 }
@@ -374,6 +377,7 @@ function Properties(props: Props) {
                         props.setMonsters((prev) => prev.filter((item) => item.id !== responseJson.data[0].id));
                         setWarning('');
                         setIsDeleteWarning(false);
+                        props.setError('');
                         return setError('');
                       } else {
                         if (responseJson?.msg) {

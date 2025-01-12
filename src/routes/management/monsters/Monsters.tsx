@@ -51,6 +51,7 @@ function Monsters() {
     data: monsters, 
     setData: setMonsters, 
     error,
+    setError,
   } = useGetData('monsters/base/all');
   const [isOpened, { open, close }] = useDisclosure(false);
 
@@ -112,6 +113,7 @@ function Monsters() {
                     <MonsterCard
                       item={item}
                       setMonsters={setMonsters}
+                      setError={setError}
                       editRelations={editRelations}
                     />
                   </div>
@@ -125,6 +127,7 @@ function Monsters() {
                 <MonsterCard key={'monstercard_' + monster.id}
                   item={monster}
                   setMonsters={setMonsters}
+                  setError={setError}
                   editRelations={editRelations}
                 />
               )) : (
@@ -173,6 +176,7 @@ function Monsters() {
           isOpened={isOpened}
           close={close}
           setMonsters={setMonsters}
+          setError={setError}
           editRelations={editRelations}
         />
       </Affix>

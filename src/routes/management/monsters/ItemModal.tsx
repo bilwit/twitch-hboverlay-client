@@ -20,6 +20,7 @@ interface Props {
   close: () => void,
   data?: Monster,
   setMonsters: React.Dispatch<React.SetStateAction<Monster[]>>,
+  setError: React.Dispatch<React.SetStateAction<string>>,
   editRelations: (ref_model: Monster) => void,
 }
 
@@ -71,6 +72,7 @@ function ItemModal(props: Props) {
               close={props.close}
               data={props?.data}
               setMonsters={props.setMonsters}
+              setError={props.setError}
               setModalName={setModalName}
             />
           </Tabs.Panel>

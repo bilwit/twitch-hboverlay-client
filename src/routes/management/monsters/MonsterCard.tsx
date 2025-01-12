@@ -18,6 +18,7 @@ interface Props {
   item: Monster,
   setMonsters: React.Dispatch<React.SetStateAction<Monster[]>>,
   editRelations: (ref_model: Monster) => void,
+  setError: React.Dispatch<React.SetStateAction<string>>,
 }
 
 function Monsters(props: Props) {
@@ -110,6 +111,7 @@ function Monsters(props: Props) {
           close={close}
           data={props.item}
           setMonsters={props.setMonsters}
+          setError={props.setError}
           editRelations={props.editRelations}
         />
       )}
