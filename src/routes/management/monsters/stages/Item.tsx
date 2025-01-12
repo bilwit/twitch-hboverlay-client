@@ -11,10 +11,10 @@ import {
   Accordion, 
   Avatar,
   Grid,
+  NativeSelect,
 } from '@mantine/core';
 import { useState } from 'react';
 import { BsFillPersonFill } from 'react-icons/bs';
-import classes from '../../../../css/Nav.module.css'
 import { useForm } from '@mantine/form';
 import { MdAdd } from 'react-icons/md';
 import { theme } from '../../../../theme';
@@ -26,6 +26,7 @@ interface Props {
     id: number,
     avatar_url: string,
     hp_value: number,
+    pause_init: boolean,
   },
   setData: React.Dispatch<React.SetStateAction<any[]>>,
   accordian_key: string,
@@ -36,6 +37,7 @@ interface FormDataInterface {
   hp_value: number,
   avatarFile: File | null,
   isAvatarChanged: boolean,
+  pause_init: string,
 }
   
 function Item(props: Props) {
@@ -49,6 +51,7 @@ function Item(props: Props) {
 
   const CreateForm = useForm({
     initialValues: {
+      pause_init: props?.data?.pause_init === true ? 'true' : 'false',
       ref_id: props.ref_id,
       hp_value: props?.data?.hp_value || 25,
       avatarFile: null,
@@ -56,6 +59,12 @@ function Item(props: Props) {
     },
 
     validate: {
+      pause_init: (value) => {
+        if (value === 'true' || value === 'false') {
+          return null;
+        }
+        return 'Required';
+      },
       hp_value: (value) => value ? null : 'Required',
       avatarFile: () => null,
     },
@@ -85,7 +94,7 @@ function Item(props: Props) {
           <form onSubmit={CreateForm.onSubmit(async (values: FormDataInterface) => {
             // check if any changes have been made
             if (!isAvatarChanged && props?.data?.id && 
-              (props.data.hp_value === values.hp_value)
+              (props.data.hp_value === values.hp_value && String(props.data.pause_init) === values.pause_init)
             ) {
               setWarning('No changes made to the original content');
             } else {
@@ -93,12 +102,15 @@ function Item(props: Props) {
               for (const property of (Object.keys(values))) {
                 submitFormData.set(property, JSON.stringify(values[property as keyof FormDataInterface]));
               }
+
               if (avatarFile) {
                 submitFormData.set('avatarFile', avatarFile);
               }
+
               if (isAvatarChanged) {
                 submitFormData.set('isAvatarChanged', 'true');
               }
+              
               try {
                 const result = await fetch(
                   props?.data?.id ? '/api/monsters/stages/' + props.data.id : '/api/monsters/stages',
@@ -196,12 +208,19 @@ function Item(props: Props) {
                   }}
                 />
               </Grid.Col>
+
               <Grid.Col span={5}>
                 <NumberInput
-                  className={classes['margin-bottom-1']}
+                  mb={'sm'}
                   required
                   label="Health %"
                   {...CreateForm.getInputProps('hp_value')}
+                />
+
+                <NativeSelect 
+                  label="Pause When Reached" 
+                  data={['true', 'false']}
+                  {...CreateForm.getInputProps('pause_init')}
                 />
               </Grid.Col>
             </Grid>
