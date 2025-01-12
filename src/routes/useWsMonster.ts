@@ -10,6 +10,7 @@ export interface MonsterData {
     maxHealth: number,
     value: number,
     isPaused: boolean,
+    isDead: boolean,
   }
 }
 
