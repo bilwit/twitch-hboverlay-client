@@ -183,7 +183,7 @@ function Settings(props: Props) {
             label="Channel Name"
             placeholder="Your Twitch Username"
             {...RegistrationForm.getInputProps('channel_name')}
-            value={settingsStore?.channel_name || props?.settings?.channel_name}
+            value={settingsStore?.channel_name || props?.settings?.channel_name || window.sessionStorage.getItem('channel_name') || ''}
           />
 
           <TextInput
@@ -192,7 +192,7 @@ function Settings(props: Props) {
             label="Bot Name"
             placeholder="Health Bar Listener"
             {...RegistrationForm.getInputProps('listener_user_name')}
-            value={settingsStore?.listener_user_name || props?.settings?.listener_user_name}
+            value={settingsStore?.listener_user_name || props?.settings?.listener_user_name || window.sessionStorage.getItem('listener_user_name') || ''}
           />
 
           <TextInput
@@ -201,7 +201,7 @@ function Settings(props: Props) {
             label="Client ID"
             placeholder="Client ID generated in the Twitch Developer Console"
             {...RegistrationForm.getInputProps('listener_client_id')}
-            value={settingsStore?.listener_client_id || props?.settings?.listener_client_id}
+            value={settingsStore?.listener_client_id || props?.settings?.listener_client_id || window.sessionStorage.getItem('listener_client_id') || ''}
           />
 
           <TextInput
@@ -210,7 +210,7 @@ function Settings(props: Props) {
             label="Secret"
             placeholder="Secret generated in the Twitch Developer Console"
             {...RegistrationForm.getInputProps('listener_secret')}
-            value={settingsStore?.listener_secret || props?.settings?.listener_secret}
+            value={settingsStore?.listener_secret || props?.settings?.listener_secret || window.sessionStorage.getItem('listener_secret') || ''}
           />
 
           {!props?.settings?.listener_auth_code && (
@@ -218,6 +218,13 @@ function Settings(props: Props) {
               <Button 
                 color={theme.colors.indigo[5]} 
                 type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.sessionStorage.setItem('channel_name', settingsStore?.channel_name || props?.settings?.channel_name || '');
+                  window.sessionStorage.setItem('listener_user_name', settingsStore?.listener_user_name || props?.settings?.listener_user_name || '');
+                  window.sessionStorage.setItem('listener_client_id', settingsStore?.listener_client_id || props?.settings?.listener_client_id || '');
+                  window.sessionStorage.setItem('listener_secret', settingsStore?.listener_secret || props?.settings?.listener_secret || '');
+                }}
               >
                 Generate Auth Link
               </Button>
@@ -318,7 +325,7 @@ function Settings(props: Props) {
                   }
 
                   settingsStore.redirect_uri = window.location.origin + '/auth';
-                  
+
                   try {
                     const result = await fetch(
                       '/api/settings',
@@ -455,6 +462,11 @@ function Settings(props: Props) {
                         setError('');
                         setWarning('');
                         navigate(0);
+
+                        window.sessionStorage.getItem('channel_name');
+                        window.sessionStorage.getItem('listener_user_name');
+                        window.sessionStorage.getItem('listener_secret');
+                        window.sessionStorage.getItem('listener_client_id');
                       } 
                     }
                   } catch (_e) {
