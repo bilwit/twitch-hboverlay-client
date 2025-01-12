@@ -83,17 +83,17 @@ function Settings(props: Props) {
 
   useEffect(() => {
     if (props.isOpened) {
-      if (isSubmitted && WsConnection?.isConnected && WsConnection?.connectedSocket) {
+      if (WsConnection?.connectedSocket) {
         try {
           WsConnection?.connectedSocket.send(JSON.stringify({ 
-            message: 'status',
+            message: 'connection-status',
           }));
         } catch (e) {
           console.error(e);
         }
       }
     }
-  }, [props.isOpened, isSubmitted, WsConnection?.isConnected]);
+  }, [props.isOpened, WsConnection?.connectedSocket]);
 
   return (
     <Modal 
@@ -370,6 +370,7 @@ function Settings(props: Props) {
                           SetIsSubmitted(true);
                           searchParams.delete('code');
                           setSearchParams(searchParams);
+                          navigate('/monsters');
                           navigate(0);
                         } 
                         // throw true;

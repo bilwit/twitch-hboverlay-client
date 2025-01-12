@@ -6,6 +6,7 @@ export interface ReturnData {
 }
 
 function useWsConnection(): ReturnData {  
+  // isConnected is the Twitch IRC status, not the server WS connection
   const [isConnected, setIsConnected] = useState(false);
   const [connectedSocket, setConnectedSocket] = useState<WebSocket>();
 
@@ -13,9 +14,25 @@ function useWsConnection(): ReturnData {
     const socket = new WebSocket('/wss');
 
     if (socket) {
-      try {  
+      try {
         socket.onopen = () => {
-          setIsConnected(true);
+          socket.send(JSON.stringify({ 
+            message: 'subscribe',
+            data: 'twitch-chat',
+            channels: ['connection-status'],
+          }));
+
+          socket.send(JSON.stringify({ 
+            message: 'connection-status',
+          }));
+        }
+
+        socket.onmessage = (e: any) => {
+          const data = JSON.parse(e?.data);
+
+          if (data.message === 'connection-status') {
+            setIsConnected(data?.data === true);
+          }
         }
         
         setConnectedSocket(socket);
