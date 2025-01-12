@@ -33,12 +33,18 @@ function useWsMonster(id: number): ReturnData {
   
         connectedSocket.onmessage = (e: any) => {
           const data = JSON.parse(e?.data);
-
-          if (data?.update) {
-            setData((prev) => ({
-              ...prev,
-              [data?.update?.id]: data?.update?.value,
-            }));
+          
+          switch (data.message) {
+            default:
+              break;
+            case 'update':
+              if (data?.data?.id === id) {
+                setData((prev) => ({
+                  ...prev,
+                  [id]: data?.data?.value,
+                }));
+              }
+              break;
           }
         }
   
