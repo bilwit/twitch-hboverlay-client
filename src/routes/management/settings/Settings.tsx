@@ -16,7 +16,7 @@ import { BiCheck, BiError, BiInfoCircle } from 'react-icons/bi';
 import { useContext, useEffect, useState } from 'react';
 import { theme } from '../../../theme';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import WsContext from '../../../wsContext';
+import WsContext from '../../wsContext';
 
 interface Props {
   settings?: Interface_Settings,

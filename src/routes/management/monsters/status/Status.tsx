@@ -8,38 +8,26 @@ import { theme } from '../../../../theme';
 import useGetData, { Monster } from '../../useGetData';
 import Item from '../../../display/avatars/Item';
 import { BiInfoCircle } from 'react-icons/bi';
-import { GrPowerReset } from 'react-icons/gr';
 import classes from '../../../../css/Nav.module.css';
 import { MdOutlinePause, MdPlayArrow } from 'react-icons/md';
-import { RiRestartFill } from "react-icons/ri";
+import { RiRestartFill, RiRestartLine } from "react-icons/ri";
 import Themes from '../../../display/bars/themes';
-import { useContext, useEffect } from 'react';
-import WsContext from '../../../../wsContext';
+import { useContext } from 'react';
+import useWsMonster from '../../../useWsMonster';
+import WsContext from '../../../wsContext';
 
 interface Props {
   data: Monster,
 }
 
 function Status(props: Props) {
-  const WsConnection = useContext(WsContext);
+  const { isConnected, connectedSocket } = useContext(WsContext);
+  const { data } = useWsMonster(props?.data.id);
   const { isLoading, data: monsters } = useGetData('monsters/base', String(props?.data?.id)); 
-
-  useEffect(() => {
-    if (WsConnection?.isConnected && WsConnection?.connectedSocket) {
-      try {
-        WsConnection?.connectedSocket.send(JSON.stringify({ 
-          message: 'current',
-          id: props?.data?.id,
-        }));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, [WsConnection?.isConnected]);
   
   return (
     <>
-      {!isLoading && WsConnection?.isConnected && (
+      {!isLoading && isConnected && (
         <>
           <Alert 
             className={classes['margin-bottom-1']}
@@ -83,7 +71,7 @@ function Status(props: Props) {
                     {props?.data?.name}
                   </Title>
                   <Title order={3}>
-                    {WsConnection?.data && 'HP: ' + (WsConnection?.data?.[props?.data?.id]?.maxHealth === 0 ? 0 : (WsConnection?.data?.[props?.data?.id]?.value / WsConnection?.data?.[props?.data?.id]?.maxHealth * 100)).toFixed(0) + (WsConnection?.data?.[props?.data?.id]?.isPaused ? ' (Paused)' : '')}
+                    {data && 'HP: ' + (data?.[props?.data?.id]?.maxHealth === 0 ? 0 : (data?.[props?.data?.id]?.value / data?.[props?.data?.id]?.maxHealth * 100)).toFixed(0) + (data?.[props?.data?.id]?.isPaused ? ' (Paused)' : '')}
                   </Title>
                 </Stack>
               </Center>
@@ -97,15 +85,15 @@ function Status(props: Props) {
               gradient={{ from: theme.colors.blue[9], to: 'indigo', deg: 90 }}
               onClick={async (e) => {
                 e.preventDefault();
-                if (WsConnection?.connectedSocket && props?.data?.id) {
-                  WsConnection.connectedSocket.send(JSON.stringify({ 
+                if (connectedSocket && props?.data?.id) {
+                  connectedSocket.send(JSON.stringify({ 
                     message: 'reset',
                     id: props?.data?.id,
                   }));
                 }
               }}
               leftSection={
-                <GrPowerReset  
+                <RiRestartLine    
                   size="1rem" 
                   stroke={'1.5'}
                 />
@@ -120,8 +108,8 @@ function Status(props: Props) {
                 gradient={{ from: theme.colors.blue[9], to: 'purple', deg: 90 }}
                 onClick={async (e) => {
                   e.preventDefault();
-                  if (WsConnection?.connectedSocket && props?.data?.id) {
-                    WsConnection.connectedSocket.send(JSON.stringify({ 
+                  if (connectedSocket && props?.data?.id) {
+                    connectedSocket.send(JSON.stringify({ 
                       message: 'reset',
                       relations_id: props?.data?.relations_id,
                     }));
@@ -138,20 +126,20 @@ function Status(props: Props) {
               </Button>
             )}
 
-            {WsConnection?.data?.[props?.data?.id]?.isPaused === true ? (
+            {data?.[props?.data?.id]?.isPaused === true ? (
               <Button 
                 variant="gradient"
                 gradient={{ from: 'grey', to: theme.colors.blue[9], deg: 90 }}
                 onClick={async (e) => {
                   e.preventDefault();
-                  if (WsConnection?.connectedSocket && props?.data?.id) {
+                  if (connectedSocket && props?.data?.id) {
                     if (props?.data?.relations_id) {
-                      WsConnection.connectedSocket.send(JSON.stringify({ 
+                      connectedSocket.send(JSON.stringify({ 
                         message: 'unpause',
                         relations_id: props?.data?.relations_id || props?.data?.id,
                       }));
                     } else {
-                      WsConnection.connectedSocket.send(JSON.stringify({ 
+                      connectedSocket.send(JSON.stringify({ 
                         message: 'unpause',
                         id: props?.data?.id,
                       }));
@@ -173,14 +161,14 @@ function Status(props: Props) {
                 gradient={{ from: theme.colors.blue[9], to: 'grey', deg: 90 }}
                 onClick={async (e) => {
                   e.preventDefault();
-                  if (WsConnection?.connectedSocket && props?.data?.id) {
+                  if (connectedSocket && props?.data?.id) {
                     if (props?.data?.relations_id) {
-                      WsConnection.connectedSocket.send(JSON.stringify({ 
+                      connectedSocket.send(JSON.stringify({ 
                         message: 'pause',
                         relations_id: props?.data?.relations_id || props?.data?.id,
                       }));
                     } else {
-                      WsConnection.connectedSocket.send(JSON.stringify({ 
+                      connectedSocket.send(JSON.stringify({ 
                         message: 'pause',
                         id: props?.data?.id,
                       }));

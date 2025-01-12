@@ -1,28 +1,14 @@
 import BarBasic from "./Basic";
 import CounterRaw from "./CounterRaw";
 import CounterPercentage from "./CounterPercentage";
-import { useContext, useEffect } from 'react';
-import WsContext from "../../../../wsContext";
+import useWsMonster from "../../../useWsMonster";
 
 interface Props {
   monster: any,
 }
 
 function Themes(props: Props) {
-  const WsConnection = useContext(WsContext);
-
-  useEffect(() => {
-    if (props?.monster?.id && WsConnection?.isConnected && WsConnection?.connectedSocket) {
-      try {
-        WsConnection?.connectedSocket.send(JSON.stringify({ 
-          message: 'current',
-          id: props?.monster?.id,
-        }));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, [WsConnection?.connectedSocket, WsConnection?.isConnected, props?.monster?.id]);
+  const { data } = useWsMonster(props.monster.id);
 
   const theme = (theme: string, isLoading: boolean, value: number, maxHealth: number) => {
     switch (theme) {
@@ -55,7 +41,7 @@ function Themes(props: Props) {
   
   return (
     <>
-      {WsConnection?.data && theme(props.monster.bar_theme, props.monster.isLoading, WsConnection?.data?.[props?.monster?.id]?.value, WsConnection?.data?.[props?.monster?.id]?.maxHealth)}
+      {data && theme(props.monster.bar_theme, props.monster.isLoading, data?.[props?.monster?.id]?.value, data?.[props?.monster?.id]?.maxHealth)}
     </>
   );
 }

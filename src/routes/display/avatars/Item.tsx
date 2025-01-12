@@ -1,6 +1,6 @@
-import WsContext from "../../../wsContext";
 import useGetData, { Monster, Stage } from "../../management/useGetData";
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import useWsMonster from "../../useWsMonster";
 
 interface Props {
   data: Monster,
@@ -11,7 +11,7 @@ function Item(props: Props) {
     isLoading,
     data: stages, 
   } = useGetData('monsters/stages', String(props.data.id));
-  const WsConnection = useContext(WsContext);
+  const { data } = useWsMonster(props.data.id);
 
   const [sorted, setSorted] = useState<Stage[]>([]);
 
@@ -21,21 +21,8 @@ function Item(props: Props) {
     }
   }, [stages]);
 
-  useEffect(() => {
-    if (props?.data?.id && WsConnection?.isConnected && WsConnection?.connectedSocket) {
-      try {
-        WsConnection?.connectedSocket.send(JSON.stringify({ 
-          message: 'current',
-          id: props?.data?.id,
-        }));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, [WsConnection?.connectedSocket, WsConnection?.isConnected, props?.data?.id]);
-
   const displayHealth = () => {
-    const percentage = WsConnection?.data ? WsConnection?.data?.[props?.data?.id]?.value / WsConnection?.data?.[props?.data?.id]?.maxHealth * 100 : 0;
+    const percentage = data ? data?.[props?.data?.id]?.value / data?.[props?.data?.id]?.maxHealth * 100 : 0;
 
     for (const stage of sorted) {
       if (percentage <= stage.hp_value) {

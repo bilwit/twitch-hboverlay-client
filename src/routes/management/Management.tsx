@@ -16,8 +16,8 @@ import { GiMonsterGrasp } from 'react-icons/gi';
 import { VscSettingsGear } from 'react-icons/vsc';
 import useGetSettings from './settings/useGetSettings';
 import { JSX, useEffect } from 'react';
-import useWsMonster from '../display/useWsMonster';
-import WsContext from '../../wsContext';
+import WsContext from '../wsContext';
+import useWsConnection from '../useWsConnection';
 
 interface Routes_Icon_Dictionary {
   [key: string]: JSX.Element,
@@ -33,10 +33,9 @@ function Management() {
   const navigate = useNavigate();
 
   const { 
-    data,
     isConnected, 
     connectedSocket
-  } = useWsMonster();  
+  } = useWsConnection();  
 
   const { isLoading, settings } = useGetSettings();
   
@@ -52,7 +51,7 @@ function Management() {
 
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
-      <WsContext.Provider value={{ data, isConnected, connectedSocket }}>
+      <WsContext.Provider value={{ isConnected, connectedSocket }}>
         <Settings
           settings={settings}
           isOpened={settingsIsOpened}
