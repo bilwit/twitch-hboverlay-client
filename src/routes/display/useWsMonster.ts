@@ -25,12 +25,11 @@ function useWsMonster(): ReturnData {
     if (socket) {
       try {  
         socket.onopen = () => {
-          socket.send(JSON.stringify({ 
-            message: 'status',
-          }));
+          setIsConnected(true);
         }
   
         socket.onmessage = (e: any) => {
+          console.log(e);
           const data = JSON.parse(e?.data);
 
           if ('status' in data) {

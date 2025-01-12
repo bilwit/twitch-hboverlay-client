@@ -79,7 +79,7 @@ function Settings(props: Props) {
       });
       SetIsSubmitted(false);
     }
-  }, [props?.settings]);
+  }, [props?.settings]); 
 
   useEffect(() => {
     if (props.isOpened) {
@@ -362,6 +362,7 @@ function Settings(props: Props) {
                           }),
                         },
                       );
+
                       if (result) {
                         const responseJson = await result.json();
                         if (responseJson.success) {
