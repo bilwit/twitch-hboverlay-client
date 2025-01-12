@@ -26,7 +26,7 @@ interface Props {
 
 function Settings(props: Props) {
   const WsConnection = useContext(WsContext);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const RegistrationForm = useForm({
     initialValues: {
@@ -364,11 +364,15 @@ function Settings(props: Props) {
                         if (responseJson.success) {
                           setError('');
                           SetIsSubmitted(true);
-                          return navigate(0);
+                          searchParams.delete('code');
+                          setSearchParams(searchParams);
+                          navigate(0);
                         } 
-                        throw true;
+                        // throw true;
                       }
-                    } catch (_err) {
+                    } catch (e) {
+
+                      console.log(e);
                       setError('Could not submit settings');
                     }
                   }}
@@ -399,12 +403,12 @@ function Settings(props: Props) {
               {warning}
             </Alert>
           )}
+
           <Group justify="flex-end" mt="md">
             {WsConnection?.isConnected ? (
               <Button 
                 disabled={warning ? true : false}
-                variant="gradient"
-                gradient={{ from: theme.colors.red[9], to: 'yellow', deg: 90 }}
+                color="yellow" 
                 onClick={(e) => {
                   e.preventDefault();
                   if (WsConnection?.isConnected && WsConnection?.connectedSocket) {
@@ -424,8 +428,7 @@ function Settings(props: Props) {
             ) : (
               <Button 
                 disabled={warning ? true : false}
-                variant="gradient"
-                gradient={{ from: theme.colors.green[9], to: 'yellow', deg: 90 }}
+                color='indigo'
                 onClick={(e) => {
                   e.preventDefault();
                   if (!WsConnection?.isConnected && WsConnection?.connectedSocket) {
@@ -484,15 +487,20 @@ function Settings(props: Props) {
                         SetIsSubmitted(false);
                         setError('');
                         setWarning('');
-                        navigate(0);
+
+                        searchParams.delete('code');
+                        setSearchParams(searchParams);
 
                         window.localStorage.removeItem('channel_name');
                         window.localStorage.removeItem('listener_user_name');
                         window.localStorage.removeItem('listener_secret');
                         window.localStorage.removeItem('listener_client_id');
+
+                        navigate(0);
                       } 
                     }
-                  } catch (_e) {
+                  } catch (e) {
+                    console.log(e);
                     setError('Could not submit settings');
                   }
                 }}
