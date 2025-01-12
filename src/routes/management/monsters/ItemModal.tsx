@@ -53,7 +53,7 @@ function ItemModal(props: Props) {
                 </Tabs.Tab>
               </>
             )}
-            {props?.data?.id && (props.data.published) && (
+            {props?.data?.id && (props?.data.published) && (
               <>
                 <Tabs.Tab value="urls" leftSection={<MdHttp style={iconStyle} />}>
                   URLs
@@ -75,24 +75,24 @@ function ItemModal(props: Props) {
             />
           </Tabs.Panel>
 
-          {props.data?.id && (
+          {props?.data?.id && (
             <>
               <Tabs.Panel mt="md" value="stages">
-                <Stages refId={props.data?.id} />
+                <Stages refId={props?.data?.id} />
               </Tabs.Panel>
 
               <Tabs.Panel mt="md" value="urls">
-                <Urls data={props.data} />
+                <Urls data={props?.data} />
               </Tabs.Panel>
 
               <Tabs.Panel mt="md" value="status">
-                <Status data={props.data} />            
+                <Status data={props?.data} />            
               </Tabs.Panel>
 
 
               <Tabs.Panel mt="md" value="relations">
                 <Relations 
-                  data={props.data}
+                  data={props?.data}
                   editRelations={props.editRelations}
                 />
               </Tabs.Panel>

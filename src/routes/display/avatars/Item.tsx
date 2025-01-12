@@ -1,6 +1,6 @@
 import useGetData, { Monster, Stage } from "../../management/useGetData";
-import { useEffect, useState } from 'react';
-import useWsMonster from "../../useWsMonster";
+import { useContext, useEffect, useState } from 'react';
+import MonsterContext from "../../management/monsters/MonsterContext";
 
 interface Props {
   data: Monster,
@@ -10,9 +10,8 @@ function Item(props: Props) {
   const { 
     isLoading,
     data: stages, 
-  } = useGetData('monsters/stages', String(props.data.id));
-  const { data } = useWsMonster(props.data.id);
-
+  } = useGetData('monsters/stages', String(props?.data.id));
+  const { data } = useContext(MonsterContext);
   const [sorted, setSorted] = useState<Stage[]>([]);
 
   useEffect(() => {
@@ -22,14 +21,14 @@ function Item(props: Props) {
   }, [stages]);
 
   const displayHealth = () => {
-    const percentage = data ? data?.[props?.data?.id]?.value / data?.[props?.data?.id]?.maxHealth * 100 : 0;
+    const percentage = data ? data?.value / data?.maxHealth * 100 : 0;
 
     for (const stage of sorted) {
       if (percentage <= stage.hp_value) {
         return (
           <img
             src={window.location.origin + '/api/avatar/' + stage.avatar_url}
-            alt={props.data.name + ' Avatar'}
+            alt={props?.data.name + ' Avatar'}
           />
         );
       }
@@ -37,15 +36,15 @@ function Item(props: Props) {
 
     return (
       <img
-        src={window.location.origin + '/api/avatar/' + props.data.avatar_url}
-        alt={props.data.name + ' Avatar'}
+        src={window.location.origin + '/api/avatar/' + props?.data.avatar_url}
+        alt={props?.data.name + ' Avatar'}
       />
     );
   }
 
   return (
     <>
-      {!isLoading && props.data && (
+      {!isLoading && props?.data && (
         <>
         {displayHealth()}
         </>

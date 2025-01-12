@@ -25,7 +25,7 @@ function Item(props: Props) {
   const remove = async () => {
     try {
       const result = await fetch(
-        '/api/monsters/relations/' + props.data?.id,
+        '/api/monsters/relations/' + props?.data?.id,
         { 
           method: 'DELETE',
         },
@@ -59,7 +59,7 @@ function Item(props: Props) {
           <div style={{ display: 'flex' }}>
             {props?.data?.avatar_url ? (
               <Avatar 
-                src={window.location.origin + '/api/avatar/' + props.data.avatar_url} 
+                src={window.location.origin + '/api/avatar/' + props?.data.avatar_url} 
                 radius="xl" 
                 size="lg" 
                 ml="lg"
@@ -72,12 +72,12 @@ function Item(props: Props) {
             <Space w="md" />
 
             <Stack gap="0">
-              <Text fw={600} mb="sm">{props.data?.name}</Text>
+              <Text fw={600} mb="sm">{props?.data?.name}</Text>
               <Badge
-                color={props.data?.published ? 'green' : 'dark'} 
+                color={props?.data?.published ? 'green' : 'dark'} 
                 variant="light"
               >
-                {props.data?.published ? 'Enabled' : 'Disabled'}
+                {props?.data?.published ? 'Enabled' : 'Disabled'}
               </Badge>
             </Stack>
 
@@ -86,7 +86,7 @@ function Item(props: Props) {
                 Created
               </Text>
               <Text size="sm">
-                {props.data?.created_at ? (new Date(props.data.created_at)).toDateString() : ''}
+                {props?.data?.created_at ? (new Date(props?.data.created_at)).toDateString() : ''}
               </Text>
 
               <Text size="xs" c="dimmed" mt="sm">
@@ -94,7 +94,7 @@ function Item(props: Props) {
               </Text>
 
               <Text size="sm">
-                {props.data?.hp_multiplier}
+                {props?.data?.hp_multiplier}
               </Text>
             </Stack>
 
