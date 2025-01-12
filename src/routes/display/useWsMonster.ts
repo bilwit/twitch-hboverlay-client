@@ -26,6 +26,12 @@ function useWsMonster(): ReturnData {
       try {  
         socket.onopen = () => {
           setIsConnected(true);
+
+          socket.send(JSON.stringify({ 
+            message: 'subscribe',
+            data: 'twitch-chat',
+            channels: ['update'],
+          }));
         }
   
         socket.onmessage = (e: any) => {
