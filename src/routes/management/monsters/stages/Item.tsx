@@ -100,7 +100,11 @@ function Item(props: Props) {
             } else {
               const submitFormData = new FormData();
               for (const property of (Object.keys(values))) {
-                submitFormData.set(property, JSON.stringify(values[property as keyof FormDataInterface]));
+                if (property === 'pause_init') {
+                  submitFormData.set(property, values.pause_init);
+                } else {
+                  submitFormData.set(property, JSON.stringify(values[property as keyof FormDataInterface]));
+                }
               }
 
               if (avatarFile) {
@@ -110,7 +114,7 @@ function Item(props: Props) {
               if (isAvatarChanged) {
                 submitFormData.set('isAvatarChanged', 'true');
               }
-              
+
               try {
                 const result = await fetch(
                   props?.data?.id ? '/api/monsters/stages/' + props.data.id : '/api/monsters/stages',
