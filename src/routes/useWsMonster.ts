@@ -48,9 +48,7 @@ function useWsMonster(id: number): ReturnData {
         console.log(err);
       }
     }
-  }, [
-   
-  ])
+  }, [])
 
   return {
     data,

@@ -10,7 +10,7 @@ function Item(props: Props) {
   const { 
     isLoading,
     data: stages, 
-  } = useGetData('monsters/stages', String(props?.data.id));
+  } = useGetData('monsters/stages', String(props?.data?.id));
   const { data } = useContext(MonsterContext);
   const [sorted, setSorted] = useState<Stage[]>([]);
 
