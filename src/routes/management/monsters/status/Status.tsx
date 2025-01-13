@@ -22,13 +22,13 @@ interface Props {
 }
 
 function Status(props: Props) {
-  const { data: monsters } = useGetData('monsters/base', String(props?.data?.id)); 
+  const { data: monsters } = useGetData('monsters/base', String(props.data.id)); 
   const { connectedSocket } = useContext(WsContext);
-  const { data } = useWsMonster(props?.data?.id);
+  const { data } = useWsMonster(props.data.id);
 
   return (
     <>
-      {props?.data && monsters && (
+      {props.data && monsters && (
         <>
           <Alert 
             className={classes['margin-bottom-1']}

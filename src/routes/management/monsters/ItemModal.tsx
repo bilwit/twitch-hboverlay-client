@@ -80,21 +80,21 @@ function ItemModal(props: Props) {
           {props?.data?.id && (
             <>
               <Tabs.Panel mt="md" value="stages">
-                <Stages refId={props?.data?.id} />
+                <Stages refId={props.data.id} />
               </Tabs.Panel>
 
               <Tabs.Panel mt="md" value="urls">
-                <Urls data={props?.data} />
+                <Urls data={props.data} />
               </Tabs.Panel>
 
               <Tabs.Panel mt="md" value="status">
-                <Status data={props?.data} />            
+                <Status data={props.data} />            
               </Tabs.Panel>
 
 
               <Tabs.Panel mt="md" value="relations">
                 <Relations 
-                  data={props?.data}
+                  data={props.data}
                   editRelations={props.editRelations}
                 />
               </Tabs.Panel>
