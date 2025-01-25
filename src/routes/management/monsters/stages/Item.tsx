@@ -12,6 +12,9 @@ import {
   Avatar,
   Grid,
   NativeSelect,
+  TagsInput,
+  MultiSelect,
+  Alert,
 } from '@mantine/core';
 import { useState } from 'react';
 import { BsFillPersonFill } from 'react-icons/bs';
@@ -19,7 +22,10 @@ import { useForm } from '@mantine/form';
 import { MdAdd } from 'react-icons/md';
 import { theme } from '../../../../theme';
 import Alerts from '../../Alerts';
-  
+import classes from '../../../../css/Nav.module.css'
+import useGetData from '../../useGetData';
+import { BiInfoCircle } from 'react-icons/bi';
+
 interface Props {
   ref_id: number,
   data?: {
@@ -27,6 +33,7 @@ interface Props {
     avatar_url: string,
     hp_value: number,
     pause_init: boolean,
+    trigger_words?: string[],
   },
   setData: React.Dispatch<React.SetStateAction<any[]>>,
   accordian_key: string,
@@ -38,9 +45,12 @@ interface FormDataInterface {
   avatarFile: File | null,
   isAvatarChanged: boolean,
   pause_init: string,
+  trigger_words?: string[],
 }
   
 function Item(props: Props) {
+  const { data: redeems, isLoading } = useGetData('redeems');
+  
   const [avatarPlaceholder, setAvatarPlaceholder] = useState<File | null>(null);
   const [avatarFile, setAvatarFile] = useState<Blob | null>(null);
   const [avatar, setAvatar] = useState<string | ArrayBuffer | null>(null);
@@ -56,6 +66,7 @@ function Item(props: Props) {
       hp_value: props?.data?.hp_value || 25,
       avatarFile: null,
       isAvatarChanged: false,
+      trigger_words: props?.data?.trigger_words,
     },
 
     validate: {
@@ -67,6 +78,7 @@ function Item(props: Props) {
       },
       hp_value: (value) => value ? null : 'Required',
       avatarFile: () => null,
+      trigger_words: () => null,
     },
   });
 
@@ -228,6 +240,41 @@ function Item(props: Props) {
                 />
               </Grid.Col>
             </Grid>
+
+            <Alert 
+              variant="light" 
+              color="indigo" 
+              title="" 
+              mb={"md"}
+              mt="xl"
+              icon={
+                <BiInfoCircle 
+                  size="1rem" 
+                  stroke={'1.5'} 
+                />
+              }
+            >
+              <div style={{ display: 'flex' }}>
+                (Optional) Specify unique triggers for this stage. If not set, the default triggers set will apply.
+              </div>
+            </Alert>
+
+            <TagsInput
+              mt="md"
+              className={classes['margin-bottom-1']}
+              label="Text Triggers" 
+              placeholder="Press ENTER per-tag" 
+              {...CreateForm.getInputProps('trigger_words')}
+            />
+
+            <MultiSelect
+              {...CreateForm.getInputProps('redeems')}
+              label="Redeem Triggers"
+              placeholder="Select"
+              data={!isLoading ? redeems : []}
+              clearable
+              mb="xl"
+            />
 
             <Group justify="center" mt="xl">
               <Button 

@@ -38,13 +38,13 @@ interface Props {
 }
 
 interface FormDataInterface {
-  name: string;
-  published: string;
+  name: string,
+  published: string,
   hp_style: string,
-  hp_multiplier: number;
-  bar_theme: string;
-  avatarFile: File | null;
-  trigger_words: string[];
+  hp_multiplier: number,
+  bar_theme: string,
+  avatarFile: File | null,
+  trigger_words: string[],
 }
 
 function Properties(props: Props) {
