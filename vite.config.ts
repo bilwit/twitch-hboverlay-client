@@ -10,12 +10,12 @@ export default defineConfig({
     https: true,
     proxy: {
       '/api': {
-        target: 'https://172.19.0.3:888',
+        target: 'https://twitch-hboverlay-api:888',
         changeOrigin: true,
         secure: false,
       },
       '/wss': {
-        target: 'wss://172.19.0.5:889',
+        target: 'wss://twitch-hboverlay-ws:889',
         changeOrigin: true,
         secure: false,
       },
