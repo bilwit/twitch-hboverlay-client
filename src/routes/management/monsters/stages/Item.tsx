@@ -33,7 +33,7 @@ interface Props {
     avatar_url: string,
     hp_value: number,
     pause_init: boolean,
-    trigger_words?: string[],
+    trigger_words?: string,
   },
   setData: React.Dispatch<React.SetStateAction<any[]>>,
   accordian_key: string,
@@ -66,7 +66,7 @@ function Item(props: Props) {
       hp_value: props?.data?.hp_value || 25,
       avatarFile: null,
       isAvatarChanged: false,
-      trigger_words: props?.data?.trigger_words,
+      trigger_words: props?.data?.trigger_words ? props?.data?.trigger_words.split(',') : [],
     },
 
     validate: {
@@ -273,6 +273,7 @@ function Item(props: Props) {
               placeholder="Select"
               data={!isLoading ? redeems : []}
               clearable
+              disabled
               mb="xl"
             />
 
