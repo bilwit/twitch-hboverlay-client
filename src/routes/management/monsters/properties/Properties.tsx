@@ -284,6 +284,7 @@ function Properties(props: Props) {
           placeholder="Select"
           data={!isLoading ? redeems : []}
           clearable
+          disabled
           mb="xl"
         />
 
