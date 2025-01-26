@@ -1,6 +1,6 @@
 import useGetData, { Monster, Stage } from "../../management/useGetData";
 import { useContext, useEffect, useState } from 'react';
-import MonsterContext from "../../management/monsters/MonsterContext";
+import WsContext from "../../wsContext";
 
 interface Props {
   data: Monster,
@@ -11,7 +11,7 @@ function Item(props: Props) {
     isLoading,
     data: stages, 
   } = useGetData('monsters/stages', String(props.data.id));
-  const { data } = useContext(MonsterContext);
+  const { data } = useContext(WsContext);
   const [sorted, setSorted] = useState<Stage[]>([]);
 
   useEffect(() => {
@@ -19,9 +19,9 @@ function Item(props: Props) {
       setSorted(stages.sort((a, b) => a.hp_value < b.hp_value ? -1 : 1));
     }
   }, [stages]);
-
+  
   const displayHealth = () => {
-    const percentage = data ? data?.value / data?.maxHealth * 100 : 0;
+    const percentage = data?.[props.data.id] ? data[props.data.id]?.value / data[props.data.id]?.maxHealth * 100 : 0;
 
     for (const stage of sorted) {
       if (percentage <= stage.hp_value) {

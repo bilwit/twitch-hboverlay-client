@@ -34,7 +34,8 @@ function Management() {
 
   const { 
     isConnected, 
-    connectedSocket
+    connectedSocket,
+    data,
   } = useWsConnection();  
 
   const { isLoading, settings } = useGetSettings();
@@ -51,7 +52,7 @@ function Management() {
 
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
-      <WsContext.Provider value={{ isConnected, connectedSocket }}>
+      <WsContext.Provider value={{ isConnected, connectedSocket, data }}>
         <Settings
           settings={settings}
           isOpened={settingsIsOpened}

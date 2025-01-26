@@ -1,9 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import WsContext from './wsContext';
-
-export interface ReturnData {
-  data: MonsterData | undefined,
-}
 
 export interface MonsterData {
   maxHealth: number,
@@ -12,9 +8,8 @@ export interface MonsterData {
   isDead: boolean,
 }
 
-function useWsMonster(id: number): ReturnData {  
-  const { isConnected, connectedSocket } = useContext(WsContext);
-  const [data, setData] = useState<MonsterData>();
+function useWsMonster(id: number) {  
+  const { isConnected, connectedSocket } = useContext(WsContext);;
 
   useEffect(() => {
     if (id && isConnected && connectedSocket) {
@@ -30,29 +25,11 @@ function useWsMonster(id: number): ReturnData {
           channels: [id],
         }));
   
-        connectedSocket.onmessage = (e: any) => {
-          const data = JSON.parse(e?.data);
-          
-          switch (data.message) {
-            default:
-              break;
-            case 'update':
-              if (data?.data?.id === id) {
-                setData(data?.data?.value);
-              }
-              break;
-          }
-        }
-  
       } catch (err) {
         console.log(err);
       }
     }
   }, [id, isConnected])
-
-  return {
-    data,
-  }
 }
 
 export default useWsMonster;

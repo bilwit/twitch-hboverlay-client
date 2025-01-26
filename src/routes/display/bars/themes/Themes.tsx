@@ -2,14 +2,14 @@ import BarBasic from "./Basic";
 import CounterRaw from "./CounterRaw";
 import CounterPercentage from "./CounterPercentage";
 import { useContext } from "react";
-import MonsterContext from "../../../management/monsters/MonsterContext";
+import WsContext from "../../../wsContext";
 
 interface Props {
   monster: any,
 }
 
 function Themes(props: Props) {
-  const { data } = useContext(MonsterContext);
+  const { data } = useContext(WsContext);
 
   const theme = (theme: string, isLoading: boolean, value: number, maxHealth: number) => {
     switch (theme) {
@@ -42,7 +42,7 @@ function Themes(props: Props) {
   
   return (
     <>
-      {data && theme(props.monster.bar_theme, props.monster.isLoading, data?.value, data?.maxHealth)}
+      {data && theme(props.monster.bar_theme, props.monster.isLoading, data[props.monster.id]?.value, data[props.monster.id]?.maxHealth)}
     </>
   );
 }

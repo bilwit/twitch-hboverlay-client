@@ -7,11 +7,12 @@ import WsContext from "../wsContext";
 function Display() {  
   const { 
     isConnected, 
-    connectedSocket
+    connectedSocket,
+    data,
   } = useWsConnection();
   
   return (
-    <WsContext.Provider value={{ isConnected, connectedSocket }}>
+    <WsContext.Provider value={{ isConnected, connectedSocket, data }}>
       <Routes>
         <Route
           path="bars/*"

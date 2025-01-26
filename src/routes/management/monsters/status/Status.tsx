@@ -15,7 +15,6 @@ import Themes from '../../../display/bars/themes';
 import { useContext } from 'react';
 import useWsMonster from '../../../useWsMonster';
 import WsContext from '../../../wsContext';
-import MonsterContext from '../MonsterContext';
 
 interface Props {
   data: Monster,
@@ -23,12 +22,13 @@ interface Props {
 
 function Status(props: Props) {
   const { data: monsters } = useGetData('monsters/base', String(props.data.id)); 
-  const { connectedSocket } = useContext(WsContext);
-  const { data } = useWsMonster(props.data.id);
+  const { connectedSocket, data } = useContext(WsContext);
+  
+  useWsMonster(props.data.id);
 
   return (
     <>
-      {props.data && monsters && (
+      {data?.[props?.data?.id] && monsters && (
         <>
           <Alert 
             className={classes['margin-bottom-1']}
@@ -46,7 +46,7 @@ function Status(props: Props) {
           </Alert>
 
           {data && monsters?.[0] && (
-            <MonsterContext.Provider value={{ data }}>
+            <>
               <Grid>
                 <Grid.Col style={{ maxWidth: '150px' }}>
                   <Card.Section m={0}>
@@ -73,7 +73,7 @@ function Status(props: Props) {
                         {props?.data?.name}
                       </Title>
                       <Title order={3}>
-                        {data && 'HP: ' + (data?.maxHealth === 0 ? 0 : (data?.value / data?.maxHealth * 100)).toFixed(0) + (data?.isPaused === true ? ' (Paused)' : '')}
+                        {data && 'HP: ' + (data[props.data.id]?.maxHealth === 0 ? 0 : (data[props.data.id]?.value / data[props.data.id]?.maxHealth * 100)).toFixed(0) + (data[props.data.id]?.isPaused === true ? ' (Paused)' : '')}
                       </Title>
                     </Stack>
                   </Center>
@@ -127,7 +127,7 @@ function Status(props: Props) {
                   </Button>
                 )}
 
-                {data?.isPaused === true ? (
+                {data[props.data.id]?.isPaused === true ? (
                   <Button 
                     variant="gradient"
                     gradient={{ from: 'grey', to: theme.colors.blue[9], deg: 90 }}
@@ -188,7 +188,7 @@ function Status(props: Props) {
                 )}
 
               </Group>
-            </MonsterContext.Provider>
+            </>
           )}
         </>
       )}
