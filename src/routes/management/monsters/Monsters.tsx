@@ -123,7 +123,7 @@ function Monsters() {
             </>
           ) : (
             <>
-              {monsters && monsters.length > 0 ? monsters.map((monster) => (
+              {monsters && monsters.length > 0 ? monsters.map((monster) => monster && (
                 <MonsterCard key={'monstercard_' + monster.id}
                   item={monster}
                   setMonsters={setMonsters}

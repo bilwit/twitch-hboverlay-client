@@ -45,7 +45,7 @@ function Status(props: Props) {
             Manage and visualize the avatar and 1 overlays.
           </Alert>
 
-          {data && (
+          {data && monsters?.[0] && (
             <MonsterContext.Provider value={{ data }}>
               <Grid>
                 <Grid.Col style={{ maxWidth: '150px' }}>

@@ -105,7 +105,7 @@ function Monsters(props: Props) {
         </Card.Section>
       </Card>
 
-      {isOpened && (
+      {isOpened && props.item && (
         <ItemModal
           isOpened={isOpened}
           close={close}

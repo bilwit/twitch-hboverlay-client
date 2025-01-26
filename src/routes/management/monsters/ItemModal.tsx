@@ -27,7 +27,7 @@ interface Props {
 const iconStyle = { width: rem(12), height: rem(12) };
 
 function ItemModal(props: Props) {
-  const [modalName, setModalName] = useState(props?.data?.name || 'Create Monster');
+  const [modalName, setModalName] = useState(props?.data?.name || 'Create Monster')
 
   return (
     <>
