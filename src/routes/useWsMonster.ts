@@ -13,11 +13,11 @@ export interface MonsterData {
 }
 
 function useWsMonster(id: number): ReturnData {  
-  const { connectedSocket } = useContext(WsContext);
+  const { isConnected, connectedSocket } = useContext(WsContext);
   const [data, setData] = useState<MonsterData>();
 
   useEffect(() => {
-    if (connectedSocket) {
+    if (id && isConnected && connectedSocket) {
       try {  
         connectedSocket.send(JSON.stringify({ 
           message: 'current',
@@ -48,7 +48,7 @@ function useWsMonster(id: number): ReturnData {
         console.log(err);
       }
     }
-  }, [])
+  }, [id, isConnected])
 
   return {
     data,
